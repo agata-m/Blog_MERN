@@ -2,7 +2,7 @@ import React from 'react';
 
 class PostsCounter extends React.Component {
     render() {
-        const { propsCount } = this.props;
+        const { postsCount } = this.props;
 
         return (
             <div>
