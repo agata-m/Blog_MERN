@@ -4,13 +4,14 @@ import { PropTypes } from 'prop-types';
 import Button from '../../common/Button/Button';
 import SmallTitle from '../../common/SmallTitle/SmallTitle';
 import HtmlBox from '../../common/HtmlBox/HtmlBox';
+import cutText from './cuttingTextFunction';
 
 import './PostSummary.scss';
 
 const PostSummary = ({ id, title, content }) => (
     <article className="post-summary">
         <SmallTitle>{title}</SmallTitle>
-        <HtmlBox>{content}</HtmlBox>
+        <HtmlBox>{cutText(content, 150)}</HtmlBox>
         <Button variant='primary'>
             Read more
         </Button>

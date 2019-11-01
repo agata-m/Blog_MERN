@@ -1,7 +1,5 @@
 import axios from 'axios';
 import { API_URL } from '../config';
-import { resolve } from 'path';
-import { rejects } from 'assert';
 
 // SELECTORS
 export const getPosts = ({ posts }) => posts.data;
