@@ -1,10 +1,11 @@
 const express = require('express');
 const cors = require('cors');
-const app = express();
 const config = require('./config');
 const mongoose = require('mongoose');
 const loadTestData = require('./testData');
 const helmet = require('helmet');
+
+const app = express();
 
 //import routes
 const postRoutes = require('./routes/post.routes');
@@ -16,7 +17,7 @@ app.use(express.json());
 app.use('/api', postRoutes);
 
 
-//connects the back end code with the database
+//connects the backend code with the database
 mongoose.connect(config.DB, { useNewUrlParser: true});
 let db = mongoose.connection;
 

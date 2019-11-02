@@ -1,5 +1,7 @@
 import React from 'react';
 import { PropTypes } from 'prop-types';
+import { withRouter } from 'react-router-dom';
+import loadPost from '../../../redux/postsRedux';
 
 import Spinner from '../../common/Spinner/Spinner';
 import Alert from '../../common/Alert/Alert';
@@ -8,8 +10,9 @@ import PageTitle from '../../common/PageTitle/PageTitle';
 
 class SinglePost extends React.Component {
     componentDidMount() {
-        const { loadSinglePost } = this.props;
-        loadSinglePost();
+        const { resetRequest, match } = this.props;
+        loadPost(match.params.id);
+        resetRequest();
     }
 
     render() {
@@ -19,6 +22,7 @@ class SinglePost extends React.Component {
             return (
                 <div>
                     <PageTitle>{posts[0].title}</PageTitle>
+                    <p>Author: {posts[0].author}</p>
                     <HtmlBox>{posts[0].content}</HtmlBox>
                 </div>
             );  
@@ -40,9 +44,11 @@ SinglePost.propTypes = {
             id: PropTypes.string.isRequired,
             title: PropTypes.string.isRequired,
             content: PropTypes.string.isRequired,
+            author: PropTypes.string.isRequired,
         })
     ),
-    loadSinglePost: PropTypes.func.isRequired,
+    loadPost: PropTypes.func.isRequired,
+    resetRequest: PropTypes.func.isRequired,
 };
 
-export default SinglePost;
+export default withRouter(props => <SinglePost {...props} />);
