@@ -5,14 +5,18 @@ class PostsCounter extends React.Component {
         let { postsCount } = this.props;
 
         if(postsCount === 0) {
-            postsCount = 'no posts';
-        };
-
-        return (
-            <div>
-                Posts amount: {postsCount}
-            </div>
-        );
+            return (
+                <div>
+                    Posts amount: no posts
+                </div>
+            )
+        } else {
+            return (
+                <div>
+                    Posts amount: {postsCount}
+                </div>
+            );
+        };        
     }
 };
 

@@ -1,7 +1,9 @@
 import React from 'react';
 import { PropTypes } from 'prop-types';
 import { withRouter } from 'react-router-dom';
-import loadPost from '../../../redux/postsRedux';
+import loadSinglePost from '../../../redux/postsRedux';
+import { FacebookProvider, Comments, ShareButton } from 'react-facebook';
+import { BASE_URL } from '../../../config';
 
 import Spinner from '../../common/Spinner/Spinner';
 import Alert from '../../common/Alert/Alert';
@@ -11,19 +13,29 @@ import PageTitle from '../../common/PageTitle/PageTitle';
 class SinglePost extends React.Component {
     componentDidMount() {
         const { resetRequest, match } = this.props;
-        loadPost(match.params.id);
+        loadSinglePost(match.params.id);
+        console.log(match.params.id); // id jest ok
         resetRequest();
     }
 
     render() {
-        const { posts, request } = this.props;
+        const { posts, request, location, singlePost } = this.props;
+        console.log(posts); //empty array - why?
 
         if(request.pending === false && request.success === true && posts.length > 0) {
             return (
                 <div>
-                    <PageTitle>{posts[0].title}</PageTitle>
-                    <p>Author: {posts[0].author}</p>
-                    <HtmlBox>{posts[0].content}</HtmlBox>
+                    <p>Author: {posts.author}</p>
+                    <PageTitle>{posts.title}</PageTitle>
+                    <FacebookProvider appId='1039993433018202'>
+                        <ShareButton href={`${BASE_URL}/${location.pathname}`}>
+                            Share
+                        </ShareButton>
+                    </FacebookProvider>
+                    <HtmlBox>{posts.content}</HtmlBox>
+                    <FacebookProvider appId='1039993433018202'>
+                        <Comments href={`${BASE_URL}/${location.pathname}`} />
+                    </FacebookProvider>
                 </div>
             );  
 
