@@ -39,7 +39,7 @@ class PostForm extends React.Component {
     }
 
     addPost = (e) => {
-        const { addPost, resetRequest } = this.props;
+        const { addPost } = this.props;
         const { post } = this.state;
 
         e.preventDefault();
@@ -51,6 +51,7 @@ class PostForm extends React.Component {
         const { post } = this.state;
         const { handleChange, handleEditor, addPost } = this;
         const { request } = this.props;
+        console.log(request, post)
 
         if (request.error) return <Alert variant='error'>{request.error}</Alert>
         else if (request.success) return <Alert variant='success'>Post has been added!</Alert>

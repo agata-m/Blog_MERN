@@ -14,7 +14,7 @@ class Posts extends React.Component {
         loadPostsByPage(initialPage, postsPerPage);
     }
 
-    loadPostsByPage = (page) => {
+    loadPostsPage = (page) => {
         const { loadPostsByPage, postsPerPage } = this.props;
         loadPostsByPage(page, postsPerPage);
     }
@@ -28,7 +28,7 @@ class Posts extends React.Component {
             pagination = true
         }
 
-        if(request.pending === false && request.error !== null) {
+        if(request.pending === false && request.error !== null && posts.length > 0) {
             return <Alert variant='error' children={''}>Error: {request.error}</Alert>
         } else if(request.pending === false && request.success === true && posts.length > 0) {
             return (
@@ -59,7 +59,7 @@ Posts.propTypes = {
 
 Posts.defaultProps = {
     initialPage: 1,
-    postsPerPage: 1,
+    postsPerPage: 2,
     pagination: true
 };
 

@@ -1,7 +1,6 @@
 import React from 'react';
 import { PropTypes } from 'prop-types';
 import { withRouter } from 'react-router-dom';
-import loadSinglePost from '../../../redux/postsRedux';
 import { FacebookProvider, Comments, ShareButton } from 'react-facebook';
 import { BASE_URL } from '../../../config';
 
@@ -10,42 +9,53 @@ import Alert from '../../common/Alert/Alert';
 import HtmlBox from '../../common/HtmlBox/HtmlBox';
 import PageTitle from '../../common/PageTitle/PageTitle';
 
+import './SinglePost.scss';
+
 class SinglePost extends React.Component {
     componentDidMount() {
-        const { resetRequest, match } = this.props;
+        const { resetRequest, loadSinglePost, match } = this.props;
         loadSinglePost(match.params.id);
-        console.log(match.params.id); // id jest ok
         resetRequest();
     }
 
     render() {
-        const { posts, request, location, singlePost } = this.props;
-        console.log(posts); //empty array - why?
+        const { posts, request, location } = this.props;
 
-        if(request.pending === false && request.success === true && posts.length > 0) {
-            return (
-                <div>
-                    <p>Author: {posts.author}</p>
-                    <PageTitle>{posts.title}</PageTitle>
-                    <FacebookProvider appId='1039993433018202'>
-                        <ShareButton href={`${BASE_URL}/${location.pathname}`}>
-                            Share
-                        </ShareButton>
-                    </FacebookProvider>
-                    <HtmlBox>{posts.content}</HtmlBox>
-                    <FacebookProvider appId='1039993433018202'>
-                        <Comments href={`${BASE_URL}/${location.pathname}`} />
-                    </FacebookProvider>
-                </div>
-            );  
+        if(posts === null && request.pending === true) {
+            return <Spinner />
+        } else if(posts === null) {   
+            return <Alert variant='error' children=''>Ups! Page not found :(</Alert>
+        };
 
-        } else if(request.pending === true || request.success === null) {
+
+        if(request.pending === true || request.success === null) {
             return <Spinner />
 
         } else if(request.pending === false && request.error != null) {
-            return <Alert variant='error'>Error: {request.error}</Alert> 
-        } else {
-            return <Alert variant='error' />
+            return <Alert variant='error' children=''>{request.error}</Alert> 
+            
+        } else if(request.pending === false && request.success === true && posts.length !== 0) {
+            return (
+                <div className='single-post-body'>
+                    <PageTitle>{posts.title}</PageTitle>
+                    <div className='share-btn-section'>
+                        <p>Author: {posts.author}</p>
+                        <FacebookProvider appId='1039993433018202'>
+                            <ShareButton href={`${BASE_URL}/${location.pathname}`} className='share-button'>
+                                Share on Facebook
+                            </ShareButton>
+                        </FacebookProvider>
+                    </div>
+                    
+                    <HtmlBox>{posts.content}</HtmlBox>
+                    <div className='fb-comment-section'>
+                        <FacebookProvider appId='1039993433018202'>
+                            <Comments href={`${BASE_URL}/${location.pathname}`} />
+                        </FacebookProvider>
+                    </div>
+                </div>
+            );  
+
         };
     }
 };
@@ -59,7 +69,7 @@ SinglePost.propTypes = {
             author: PropTypes.string.isRequired,
         })
     ),
-    loadPost: PropTypes.func.isRequired,
+    loadSiglePost: PropTypes.func.isRequired,
     resetRequest: PropTypes.func.isRequired,
 };
 

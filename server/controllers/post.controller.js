@@ -34,7 +34,7 @@ exports.addPost = async function (req, res) {
     } catch(err) {
         res.status(500).json(err);
     }
-}
+};
 
 //get posts by range
 exports.getPostsByRange = async function (req, res) {

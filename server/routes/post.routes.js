@@ -10,7 +10,7 @@ router.route('/posts').get(PostController.getPosts);
 router.route('/posts/:id').get(PostController.getSinglePost);
 
 //add posts
-router.route('./posts').post(PostController.addPost);
+router.route('/posts').post(PostController.addPost);
 
 //get posts by range
 router.route('/posts/range/:startAt/:limit').get(PostController.getPostsByRange);

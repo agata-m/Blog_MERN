@@ -98,7 +98,6 @@ export const loadSinglePostRequest = (id) => {
 
         try {
             let res = await axios.get(`${BASE_URL}${API_URL}/posts/${id}`);
-            await new Promise((resolve, reject) => setTimeout(resolve, 1000));
             dispatch(loadSinglePost(res.data));
             dispatch(endRequest());
         } catch(e) {
@@ -112,13 +111,11 @@ export const loadPostsByPageRequest = (page, postsPerPage) => {
         dispatch(startRequest());
 
         try {
-            const postsPerPage = 10;
             const startAt = (page - 1) * postsPerPage;
             const limit = postsPerPage;
 
             let res = await axios.get(`${BASE_URL}${API_URL}/posts/range/${startAt}/${limit}`);
-            await new Promise((resolve, reject) => setTimeout(resolve, 2000));
-
+            
             const payload = {
                 posts: res.data.posts,
                 amount: res.data.amount,
@@ -143,7 +140,6 @@ export const addPostRequest = (post) => {
         try {
 
             let res = await axios.post(`${BASE_URL}${API_URL}/posts`, post);
-            await new Promise((resolve, reject) => setTimeout(resolve, 2000));
             dispatch(endRequest());
 
         } catch(e) {
