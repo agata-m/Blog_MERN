@@ -39,7 +39,7 @@ class Pagination extends React.Component {
                         <li
                             className={`pagination_list_item${(true) ? ' pagination_list_item--active' : ''}`}
                             onClick={this.previousPage}>
-                            &lt;
+                            <b>&lt;</b>
                         </li>
                     )}
 
@@ -56,7 +56,7 @@ class Pagination extends React.Component {
                         <li
                             className={`pagination_list_item${(true) ? ' pagination_list_item--active' : ''}`}
                             onClick={this.nextPage}>
-                            &rt;
+                            <b>&gt;</b>
                         </li>
                     )}
 
