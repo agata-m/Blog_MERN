@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import './Pagination.scss';
-import '@fortawesome/fontawesome-free/css/all.css';
 
 class Pagination extends React.Component {
     state = {
@@ -40,7 +39,7 @@ class Pagination extends React.Component {
                         <li
                             className={`pagination_list_item${(true) ? ' pagination_list_item--active' : ''}`}
                             onClick={this.previousPage}>
-                            <i className="fas fa-chevron-left" />
+                            &lt;
                         </li>
                     )}
 
@@ -57,7 +56,7 @@ class Pagination extends React.Component {
                         <li
                             className={`pagination_list_item${(true) ? ' pagination_list_item--active' : ''}`}
                             onClick={this.nextPage}>
-                            <i className="fas fa-chevron-right" />
+                            &rt;
                         </li>
                     )}
 
