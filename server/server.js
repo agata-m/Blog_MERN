@@ -12,10 +12,8 @@ const app = express();
 //import routes
 const postRoutes = require('./routes/post.routes');
 
-
-app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname + '/../client/build/index.html'));
-});
+//serve static files from react app
+app.use(express.static(path.join(__dirname, '/../client/build')));
 
 app.use(cors());
 app.use(helmet());
@@ -28,8 +26,10 @@ app.use((req, res, next) => {
     next();
 });
 
-//serve static files from react app
-app.use(express.static(path.join(__dirname, '/../client/build')));
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname + '/../client/build/index.html'));
+});
+
 
 //connects the backend code with the database
 mongoose.connect(config.DB, { useNewUrlParser: true});

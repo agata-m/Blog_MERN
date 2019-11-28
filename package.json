@@ -10,7 +10,7 @@
     "start:server": "cd server && yarn start",
     "start:client": "cd client && yarn start",
     "build": "run-p build:*",
-    "build:clien": "cd client && npm run build",
+    "build:client": "cd client && npm run build",
     "install:client": "cd client && npm install",
     "install:server": "cd server && npm install",
     "postinstall": "run-p install:*"
